@@ -111,7 +111,7 @@ int8_t add_task(void (*p_func)(void),
     return index;
 }
 
-#ifdef EN_DELETE_TASK
+#if (EN_DELETE_TASK != 0)
 /**
   * @brief  Delete task
   * @param  index : Task index

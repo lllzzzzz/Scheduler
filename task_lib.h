@@ -2,8 +2,8 @@
 #define _TASK_LIB_H
 /*___________________CONSTANT___________________*/
 
-#define MAX_TASKS (3)
-
+#define MAX_TASKS 3      /* Maximum number of tasks */
+#define EN_DELETE_TASK 0 /* Enable task deletion */
 /*___________________FUNCITON___________________*/
 
 #ifndef uint8_t
@@ -26,7 +26,6 @@ typedef int int16_t;
 typedef long int32_t;
 #endif
 
-
 /* Task control block */
 typedef struct tcb
 {
@@ -41,14 +40,16 @@ typedef struct tcb
 } tcb_t;
 
 /*___________________EXTERNDA___________________*/
+
 void sch_update(void);
 void dispathch_tasks(void);
 int8_t add_task(void (*p_func)(void),
                 uint16_t del,
                 uint16_t per,
                 uint8_t co_op);
-                
-#ifdef EN_DELETE_TASK
+
+#if (EN_DELETE_TASK != 0)
 int8_t delete_task(uint8_t index);
 #endif
+
 #endif
