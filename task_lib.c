@@ -27,7 +27,7 @@ void sch_update(void)
                 else
                 {
                     /* If it is a pre-emptive task, run it IMMEDIATELY */
-                    (*tcb[index].p_tack_cb)();
+                    tcb[index].p_tack_cb();
 
                     if (tcb[index].period == 0)
                     {
@@ -64,7 +64,7 @@ void dispathch_tasks(void)
         /* Only dispatching co_operative tasks */
         if (tcb[index].co_op && tcb[index].run_me > 0)
         {
-            (*tcb[index].p_tack_cb)();
+            tcb[index].p_tack_cb();
 
             tcb[index].run_me -= 1;
 
@@ -82,7 +82,7 @@ void dispathch_tasks(void)
   * @param  del : Delay time
   * @param  per : Period
   * @param  co_op : co_operative
-  * @retval 0 : failed  1: success
+  * @retval -1 : failed  index : success
   */
 int8_t add_task(void (*p_func)(void),
                 uint16_t del,
@@ -115,7 +115,7 @@ int8_t add_task(void (*p_func)(void),
 /**
   * @brief  Delete task
   * @param  index : Task index
-  * @retval 0 : failed  1: success
+  * @retval -1 : failed  index : success
   */
 int8_t delete_task(uint8_t index)
 {
